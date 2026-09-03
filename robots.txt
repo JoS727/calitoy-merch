@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://calitoy-merch.pages.dev/sitemap.xml

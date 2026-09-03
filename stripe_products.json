@@ -1,0 +1,212 @@
+[
+  {
+    "name": "Calitoy Black Tee",
+    "image": "mockup-tee-black.jpg",
+    "price_cents": 3200,
+    "product_id": "prod_VBsMcRBOmJeYyK",
+    "price_id": "price_1UBUjPISCKHDtOuFaEjpVyH2"
+  },
+  {
+    "name": "Calitoy Rose Heart Tee",
+    "image": "mockup-tee-rose-heart.jpg",
+    "price_cents": 3500,
+    "product_id": "prod_VBsOrc0bpQEreR",
+    "price_id": "price_1UBUjQISCKHDtOuFcWcoXssv"
+  },
+  {
+    "name": "Calitoy Gothic 7 Tee",
+    "image": "calitoy-logo-gothic-7.jpg",
+    "price_cents": 3500,
+    "product_id": "prod_VBsOyIP6dVfMdF",
+    "price_id": "price_1UBUjSISCKHDtOuFh7i18lDE"
+  },
+  {
+    "name": "Calitoy Retro 7 Tee",
+    "image": "calitoy-logo-retro-7.jpg",
+    "price_cents": 3500,
+    "product_id": "prod_VBsTwVhGEdQl2s",
+    "price_id": "price_1UBUjTISCKHDtOuFGzxUQURf"
+  },
+  {
+    "name": "Calitoy Cali7 Joy Tee",
+    "image": "calitoy-logo-cali7-joy.jpg",
+    "price_cents": 3500,
+    "product_id": "prod_VBsTC3LVpdNUNr",
+    "price_id": "price_1UBUjUISCKHDtOuFeTObKOnf"
+  },
+  {
+    "name": "Calitoy Brand Model Tee",
+    "image": "calitoy-brand-model.jpg",
+    "price_cents": 4000,
+    "product_id": "prod_VBsTa6FNrRmCBN",
+    "price_id": "price_1UBUjXISCKHDtOuFTfbPBN1N"
+  },
+  {
+    "name": "Calitoy x Kills Tee",
+    "image": "calitoy-collab-kills.jpg",
+    "price_cents": 4000,
+    "product_id": "prod_VBsTQRUlXvDZC3",
+    "price_id": "price_1UBUjYISCKHDtOuFcHYQDJV7"
+  },
+  {
+    "name": "Calitoy Muse x Kills Tee",
+    "image": "calitoy-collab-muse-kills.jpg",
+    "price_cents": 4000,
+    "product_id": "prod_VBsTo2tKXPABeC",
+    "price_id": "price_1UBUjaISCKHDtOuFcJCUbpbE"
+  },
+  {
+    "name": "Lioness Album Tee",
+    "image": "calitoy-lioness-album.jpg",
+    "price_cents": 3800,
+    "product_id": "prod_VBsTf3E5YlghE0",
+    "price_id": "price_1UBUjbISCKHDtOuFOmIgjHDG"
+  },
+  {
+    "name": "Calitoy Gold Circle Tee",
+    "image": "calitoy-logo-gold-circle.jpg",
+    "price_cents": 3500,
+    "product_id": "prod_VBsTLuNs7IY1hd",
+    "price_id": "price_1UBUjcISCKHDtOuFkmnzywGd"
+  },
+  {
+    "name": "Calitoy Neon Metal Tee",
+    "image": "calitoy-logo-neon-metal.jpg",
+    "price_cents": 3500,
+    "product_id": "prod_VBsT6DbZE1QieC",
+    "price_id": "price_1UBUjfISCKHDtOuFgKFDZe35"
+  },
+  {
+    "name": "Calitoy Gold Sun Tee",
+    "image": "calitoy-logo-gold-sun.jpg",
+    "price_cents": 3800,
+    "product_id": "prod_VBsT9cRrnXdMsw",
+    "price_id": "price_1UBUjgISCKHDtOuFcWoKoJfY"
+  },
+  {
+    "name": "Calitoy Purple Sunflower Tee",
+    "image": "calitoy-logo-purple-sunflower.jpg",
+    "price_cents": 3500,
+    "product_id": "prod_VBsTbceYTy0FbJ",
+    "price_id": "price_1UBUjiISCKHDtOuFgdvs0xKV"
+  },
+  {
+    "name": "Calitoy Chrome Purple Tee",
+    "image": "calitoy-logo-chrome-purple.jpg",
+    "price_cents": 3500,
+    "product_id": "prod_VBsT5ntewBTsF9",
+    "price_id": "price_1UBUjjISCKHDtOuFgCCMP1Sk"
+  },
+  {
+    "name": "Calitoy Purple Lotus Tee",
+    "image": "calitoy-logo-purple-lotus.jpg",
+    "price_cents": 3500,
+    "product_id": "prod_VBsTylgkf3iep1",
+    "price_id": "price_1UBUjkISCKHDtOuFJljpiBwf"
+  },
+  {
+    "name": "Calitoy Neon Purple Tee",
+    "image": "calitoy-logo-neon-purple.jpg",
+    "price_cents": 3500,
+    "product_id": "prod_VBsTEdWumAJU0d",
+    "price_id": "price_1UBUjnISCKHDtOuFpthC4kPW"
+  },
+  {
+    "name": "Calitoy Pink 3D Tee",
+    "image": "calitoy-logo-pink-3d.jpg",
+    "price_cents": 3500,
+    "product_id": "prod_VBsTOBTVfV1Udl",
+    "price_id": "price_1UBUjoISCKHDtOuFE4bOI2Dy"
+  },
+  {
+    "name": "Calitoy Gold Emboss Tee",
+    "image": "calitoy-logo-gold-emboss.jpg",
+    "price_cents": 3500,
+    "product_id": "prod_VBsTLrikiG1IVB",
+    "price_id": "price_1UBUjqISCKHDtOuFEFElXHrQ"
+  },
+  {
+    "name": "Calitoy Muse Gold Rose Tee",
+    "image": "calitoy-logo-muse-gold-rose.jpg",
+    "price_cents": 3800,
+    "product_id": "prod_VBsTSWCmgaCE1k",
+    "price_id": "price_1UBUjrISCKHDtOuFjTqTYLMI"
+  },
+  {
+    "name": "Calitoy Tattoo 7 Tee",
+    "image": "calitoy-logo-tattoo-7.jpg",
+    "price_cents": 3500,
+    "product_id": "prod_VBsTETE9e9muA8",
+    "price_id": "price_1UBUjsISCKHDtOuFSsyy6XfS"
+  },
+  {
+    "name": "Calitoy Tank Top",
+    "image": "mockup-tank-black.jpg",
+    "price_cents": 2800,
+    "product_id": "prod_VBsTFVeTRix8jd",
+    "price_id": "price_1UBUjvISCKHDtOuFx7EBRYzd"
+  },
+  {
+    "name": "Calitoy Gothic Hoodie",
+    "image": "mockup-hoodie-gothic.jpg",
+    "price_cents": 5500,
+    "product_id": "prod_VBsTSyGGtl6Rx2",
+    "price_id": "price_1UBUjwISCKHDtOuFrJNqRIKO"
+  },
+  {
+    "name": "Calitoy Cap",
+    "image": "mockup-cap-black.jpg",
+    "price_cents": 2800,
+    "product_id": "prod_VBsTay9l7Axi0q",
+    "price_id": "price_1UBUjyISCKHDtOuFU20mqGS8"
+  },
+  {
+    "name": "Calitoy Snapback",
+    "image": "mockup-cap-snapback.jpg",
+    "price_cents": 3000,
+    "product_id": "prod_VBsT4LZKgj9L7N",
+    "price_id": "price_1UBUjzISCKHDtOuF3HnzxyRu"
+  },
+  {
+    "name": "Calitoy Beanie",
+    "image": "mockup-beanie-black.jpg",
+    "price_cents": 2400,
+    "product_id": "prod_VBsTDulvYNingy",
+    "price_id": "price_1UBUk0ISCKHDtOuF29qMRZ8u"
+  },
+  {
+    "name": "Calitoy Mug",
+    "image": "mockup-mug-white.jpg",
+    "price_cents": 1800,
+    "product_id": "prod_VBsTm70QWjEKYy",
+    "price_id": "price_1UBUk3ISCKHDtOuFSmj4Ga9O"
+  },
+  {
+    "name": "Calitoy Travel Mug",
+    "image": "mockup-mug-travel.jpg",
+    "price_cents": 2200,
+    "product_id": "prod_VBsTch9e9i8GpB",
+    "price_id": "price_1UBUk4ISCKHDtOuFlGo6fhxX"
+  },
+  {
+    "name": "Calitoy Sticker Pack",
+    "image": "mockup-sticker.jpg",
+    "price_cents": 800,
+    "product_id": "prod_VBsTwF4YpDLfDS",
+    "price_id": "price_1UBUk5ISCKHDtOuFqbAGuVij"
+  },
+  {
+    "name": "Calitoy Blanket",
+    "image": "mockup-blanket.jpg",
+    "price_cents": 4500,
+    "product_id": "prod_VBsTV5q7UWfaWx",
+    "price_id": "price_1UBUk7ISCKHDtOuFhvKDV53M"
+  },
+  {
+    "name": "Calitoy Tote Bag",
+    "image": "mockup-tote-natural.jpg",
+    "price_cents": 2400,
+    "product_id": "prod_VBsUv9PYoWR23G",
+    "price_id": "price_1UBUk8ISCKHDtOuF7VV7Okrx"
+  }
+]
