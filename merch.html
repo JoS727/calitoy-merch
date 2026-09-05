@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calitoy Merch | Official Store</title>
-  <meta name="description" content="Official Calitoy merchandise. Premium quality apparel, accessories, and collectibles with the Calitoy brand design.">
+  <meta name="description" content="Official Calitoy merchandise. Pick your design, pick your product, check out with Stripe. Premium quality apparel, accessories, and collectibles fulfilled through Printful.">
   <meta property="og:title" content="Calitoy Merch | Official Store">
   <meta property="og:description" content="Official Calitoy merchandise. Premium quality apparel, accessories, and collectibles.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="/assets/calitoy-social-graph.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/assets/calitoy-social-graph.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,6 +18,7 @@
     :root {
       --bg: #0a0908;
       --bg-alt: #131210;
+      --bg-card: #181614;
       --gold: #c9a96e;
       --gold-dim: #8a7e6f;
       --purple: #5c2d88;
@@ -23,6 +26,7 @@
       --white: #f5f0e8;
       --white-dim: #8a7e6f;
       --border: rgba(201, 169, 110, 0.15);
+      --border-hover: rgba(201, 169, 110, 0.4);
       --radius: 8px;
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -74,6 +78,12 @@
       color: var(--white);
     }
 
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
     nav ul {
       list-style: none;
       display: flex;
@@ -108,6 +118,50 @@
       right: 0;
       height: 2px;
       background: var(--gold);
+    }
+
+    /* Cart icon */
+    .cart-btn {
+      position: relative;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--white-dim);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      padding: 0.25rem;
+    }
+
+    .cart-btn:hover {
+      color: var(--gold);
+    }
+
+    .cart-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background: var(--gold);
+      color: var(--bg);
+      font-size: 0.65rem;
+      font-weight: 700;
+      min-width: 18px;
+      height: 18px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .cart-badge.hidden {
+      display: none;
     }
 
     .hamburger {
@@ -172,8 +226,6 @@
       text-transform: uppercase;
       color: var(--white);
       margin-bottom: 1rem;
-      position: relative;
-      z-index: 1;
     }
 
     .hero h1 .accent {
@@ -185,139 +237,479 @@
       color: var(--white-dim);
       max-width: 600px;
       margin: 0 auto;
-      position: relative;
-      z-index: 1;
     }
 
-    /* Category Filters */
-    .filters {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      padding: 2rem 2rem 1rem;
+    /* Design Selector Section */
+    .selector-section {
       max-width: 1400px;
       margin: 0 auto;
+      padding: 3rem 2rem;
     }
 
-    .filter-btn {
-      padding: 0.5rem 1.25rem;
-      border: 1px solid var(--border);
-      background: transparent;
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      text-align: center;
       color: var(--white-dim);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
       font-family: 'Inter', sans-serif;
       font-size: 0.8rem;
       font-weight: 500;
-      letter-spacing: 0.05em;
       text-transform: uppercase;
-      border-radius: 50px;
-      cursor: pointer;
+      letter-spacing: 0.05em;
+      color: var(--white-dim);
       transition: var(--transition);
     }
 
-    .filter-btn:hover {
-      border-color: var(--gold);
+    .step.active {
       color: var(--gold);
     }
 
-    .filter-btn.active {
+    .step.completed {
+      color: var(--gold);
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--white-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .step.active .step-number {
+      border-color: var(--gold);
       background: var(--gold);
       color: var(--bg);
+    }
+
+    .step.completed .step-number {
       border-color: var(--gold);
+      background: var(--gold);
+      color: var(--bg);
     }
 
-    /* Product Grid */
-    .products-grid {
+    /* Design grid */
+    .design-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
     }
 
-    .product-card {
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
+    .design-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
+      cursor: pointer;
       transition: var(--transition);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-card:hover {
-      border-color: var(--gold);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(201, 169, 110, 0.1);
-    }
-
-    .product-image {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-      background: #000;
       position: relative;
     }
 
-    .product-image img {
+    .design-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+    }
+
+    .design-card.selected {
+      border-color: var(--gold);
+      box-shadow: 0 0 20px rgba(201, 169, 110, 0.2);
+    }
+
+    .design-card.selected::after {
+      content: '\2713';
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--gold);
+      color: var(--bg);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .design-card img {
       width: 100%;
-      height: 100%;
+      aspect-ratio: 1 / 1;
       object-fit: cover;
-      transition: var(--transition);
+      display: block;
+    }
+
+    .design-card .design-name {
+      padding: 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--white);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .design-card.selected .design-name {
+      color: var(--gold);
+    }
+
+    /* Product type grid */
+    .product-types-wrapper {
+      display: none;
+    }
+
+    .product-types-wrapper.visible {
+      display: block;
+    }
+
+    .product-types-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-type-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
       cursor: pointer;
-    }
-
-    .product-card:hover .product-image img {
-      transform: scale(1.05);
-    }
-
-    .product-info {
-      padding: 1.25rem;
+      transition: var(--transition);
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+    }
+
+    .product-type-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .product-type-card .mockup-image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background: #000;
+      display: block;
+    }
+
+    .product-type-info {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
       flex: 1;
     }
 
-    .product-category {
-      font-size: 0.7rem;
-      color: var(--gold-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 600;
-    }
-
-    .product-name {
+    .product-type-name {
       font-family: 'Oswald', sans-serif;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: 500;
       color: var(--white);
       letter-spacing: 0.02em;
     }
 
-    .product-bottom {
+    .product-type-price {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-top: auto;
+    }
+
+    .product-type-add {
+      background: var(--gold);
+      color: var(--bg);
+      border: none;
+      padding: 0.6rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 0.5rem;
+    }
+
+    .product-type-add:hover {
+      background: var(--white);
+    }
+
+    .product-type-add:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .no-design-warning {
+      text-align: center;
+      color: var(--white-dim);
+      padding: 3rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* Cart drawer */
+    .cart-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 1500;
+    }
+
+    .cart-overlay.active {
+      display: block;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 400px;
+      max-width: 90vw;
+      background: var(--bg-alt);
+      border-left: 1px solid var(--border);
+      z-index: 1600;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-drawer.open {
+      transform: translateX(0);
+    }
+
+    .cart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .cart-header h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .cart-close {
+      background: none;
+      border: none;
+      color: var(--white-dim);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+      line-height: 1;
+      padding: 0.25rem;
+    }
+
+    .cart-close:hover {
+      color: var(--gold);
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .cart-empty {
+      text-align: center;
+      color: var(--white-dim);
+      padding: 3rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 0.875rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem;
+    }
+
+    .cart-item-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .cart-item-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      min-width: 0;
+    }
+
+    .cart-item-design {
+      font-size: 0.7rem;
+      color: var(--white-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cart-item-type {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cart-item-price {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.95rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .cart-item-bottom {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-top: auto;
-      padding-top: 0.75rem;
     }
 
-    .product-price {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 600;
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .qty-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--white);
+      cursor: pointer;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .qty-btn:hover {
+      border-color: var(--gold);
       color: var(--gold);
     }
 
-    .btn-buy {
+    .qty-value {
+      font-size: 0.8rem;
+      font-weight: 600;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .cart-item-remove {
+      background: none;
+      border: none;
+      color: var(--white-dim);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      padding: 0.2rem;
+    }
+
+    .cart-item-remove:hover {
+      color: #c94a4a;
+    }
+
+    .cart-footer {
+      border-top: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .cart-total-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--white-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .cart-total-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .btn-checkout {
+      width: 100%;
       background: var(--gold);
       color: var(--bg);
       border: none;
-      padding: 0.6rem 1.25rem;
+      padding: 0.875rem;
       font-family: 'Inter', sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       font-weight: 600;
       letter-spacing: 0.05em;
       text-transform: uppercase;
@@ -326,101 +718,35 @@
       transition: var(--transition);
     }
 
-    .btn-buy:hover {
+    .btn-checkout:hover {
       background: var(--white);
-      transform: scale(1.05);
     }
 
-    .btn-buy:disabled {
-      opacity: 0.6;
-      cursor: loading;
+    .btn-checkout:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
-    /* Quick View Modal */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(10px);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal {
-      background: var(--bg-alt);
+    .btn-clear-cart {
+      width: 100%;
+      background: none;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      max-width: 500px;
-      width: 100%;
-      overflow: hidden;
-      animation: modalIn 0.3s ease;
-    }
-
-    @keyframes modalIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .modal img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-    }
-
-    .modal-body {
-      padding: 1.5rem;
-    }
-
-    .modal-body h3 {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.5rem;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-    }
-
-    .modal-body .price {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.75rem;
-      color: var(--gold);
-      margin-bottom: 1rem;
-    }
-
-    .modal-body .btn-buy {
-      width: 100%;
-      padding: 0.875rem;
-      font-size: 0.9rem;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      color: var(--white-dim);
+      padding: 0.6rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 4px;
       cursor: pointer;
-      color: var(--gold);
-      font-size: 1.25rem;
+      margin-top: 0.5rem;
       transition: var(--transition);
     }
 
-    .modal-close:hover {
-      border-color: var(--gold);
+    .btn-clear-cart:hover {
+      border-color: #c94a4a;
+      color: #c94a4a;
     }
 
     /* Footer */
@@ -505,6 +831,21 @@
       transform: translateY(0);
     }
 
+    /* Spinner */
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(10, 9, 8, 0.3);
+      border-top-color: var(--bg);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
     /* Mobile */
     @media (max-width: 768px) {
       .hamburger {
@@ -548,516 +889,110 @@
         font-size: 1rem;
       }
 
-      .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      .design-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 0.75rem;
+      }
+
+      .product-types-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 1rem;
-        padding: 1rem;
-      }
-
-      .product-name {
-        font-size: 0.9rem;
-      }
-
-      .product-price {
-        font-size: 1rem;
-      }
-
-      .btn-buy {
-        padding: 0.5rem 0.875rem;
-        font-size: 0.7rem;
       }
 
       .footer-content {
         grid-template-columns: 1fr;
       }
-    }
 
-    @media (max-width: 480px) {
-      .products-grid {
-        grid-template-columns: 1fr 1fr;
+      .cart-drawer {
+        width: 100vw;
+        max-width: 100vw;
       }
-    }
-
-    /* Loading state */
-    .spinner {
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      border: 2px solid rgba(10, 9, 8, 0.3);
-      border-top-color: var(--bg);
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
   <header>
     <a href="https://calitoy.com" class="logo">CALI<span>TOY</span></a>
-    <button class="hamburger" id="hamburger" aria-label="Menu toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <nav>
-      <ul id="navMenu">
-        <li><a href="https://calitoy.com">Home</a></li>
-        <li><a href="/merch.html" class="active">Merch</a></li>
-        <li><a href="https://soundcloud.com/calitoy">Music</a></li>
-      </ul>
-    </nav>
+    <div class="header-right">
+      <nav>
+        <ul id="navMenu">
+          <li><a href="https://calitoy.com">Home</a></li>
+          <li><a href="/merch.html" class="active">Merch</a></li>
+          <li><a href="https://soundcloud.com/calitoy">Music</a></li>
+        </ul>
+      </nav>
+      <button class="cart-btn" id="cartBtn" aria-label="Open cart">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-badge hidden" id="cartBadge">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menu toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </header>
 
   <section class="hero">
     <h1>Official <span class="accent">Calitoy</span> Merch</h1>
-    <p>Premium apparel and accessories featuring exclusive Calitoy designs. Every order fulfilled through Printful with worldwide shipping.</p>
+    <p>Pick your design. Pick your product. Check out with Stripe. Every order fulfilled through Printful with worldwide shipping.</p>
   </section>
 
-  <div class="filters">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="t-shirts">T-Shirts</button>
-    <button class="filter-btn" data-filter="tank-tops">Tank Tops</button>
-    <button class="filter-btn" data-filter="hoodies">Hoodies</button>
-    <button class="filter-btn" data-filter="hats">Hats</button>
-    <button class="filter-btn" data-filter="mugs">Mugs</button>
-    <button class="filter-btn" data-filter="accessories">Accessories</button>
-  </div>
+  <!-- Design Selector -->
+  <section class="selector-section">
+    <h2 class="section-title">Build Your Order</h2>
+    <p class="section-subtitle">Choose a design, then choose what to put it on.</p>
 
-  <div class="products-grid" id="productsGrid">
-      <div class="product-card" data-category="t-shirts" data-price="3200">
-        <div class="product-image">
-          <img src="/assets/mockup-tee-black.jpg" alt="Calitoy Black Tee" loading="lazy" onclick="openQuickView('Calitoy Black Tee', '/assets/mockup-tee-black.jpg', '$32.00', 'price_1UBUjPISCKHDtOuFaEjpVyH2')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Black Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$32.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjPISCKHDtOuFaEjpVyH2', 'Calitoy Black Tee')">Buy Now</button>
-          </div>
-        </div>
+    <div class="step-indicator">
+      <div class="step active" id="step1">
+        <div class="step-number">1</div>
+        <span>Pick Design</span>
       </div>
+      <div class="step" id="step2">
+        <div class="step-number">2</div>
+        <span>Pick Product</span>
+      </div>
+      <div class="step" id="step3">
+        <div class="step-number">3</div>
+        <span>Checkout</span>
+      </div>
+    </div>
 
-      <div class="product-card" data-category="t-shirts" data-price="3500">
-        <div class="product-image">
-          <img src="/assets/mockup-tee-rose-heart.jpg" alt="Calitoy Rose Heart Tee" loading="lazy" onclick="openQuickView('Calitoy Rose Heart Tee', '/assets/mockup-tee-rose-heart.jpg', '$35.00', 'price_1UBUjQISCKHDtOuFcWcoXssv')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Rose Heart Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$35.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjQISCKHDtOuFcWcoXssv', 'Calitoy Rose Heart Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
+    <!-- Step 1: Design selection -->
+    <div id="designStep">
+      <div class="design-grid" id="designGrid"></div>
+    </div>
 
-      <div class="product-card" data-category="t-shirts" data-price="3500">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-gothic-7.jpg" alt="Calitoy Gothic 7 Tee" loading="lazy" onclick="openQuickView('Calitoy Gothic 7 Tee', '/assets/calitoy-logo-gothic-7.jpg', '$35.00', 'price_1UBUjSISCKHDtOuFh7i18lDE')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Gothic 7 Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$35.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjSISCKHDtOuFh7i18lDE', 'Calitoy Gothic 7 Tee')">Buy Now</button>
-          </div>
-        </div>
+    <!-- Step 2: Product type selection -->
+    <div class="product-types-wrapper" id="productTypesWrapper">
+      <div id="noDesignWarning" class="no-design-warning" style="display:none;">
+        Please select a design first to see available products.
       </div>
+      <div class="product-types-grid" id="productTypesGrid"></div>
+    </div>
+  </section>
 
-      <div class="product-card" data-category="t-shirts" data-price="3500">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-retro-7.jpg" alt="Calitoy Retro 7 Tee" loading="lazy" onclick="openQuickView('Calitoy Retro 7 Tee', '/assets/calitoy-logo-retro-7.jpg', '$35.00', 'price_1UBUjTISCKHDtOuFGzxUQURf')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Retro 7 Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$35.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjTISCKHDtOuFGzxUQURf', 'Calitoy Retro 7 Tee')">Buy Now</button>
-          </div>
-        </div>
+  <!-- Cart Drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button class="cart-close" id="cartClose" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">Your cart is empty. Pick a design and product to get started.</div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-total">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-value" id="cartTotal">$0.00</span>
       </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="3500">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-cali7-joy.jpg" alt="Calitoy Cali7 Joy Tee" loading="lazy" onclick="openQuickView('Calitoy Cali7 Joy Tee', '/assets/calitoy-logo-cali7-joy.jpg', '$35.00', 'price_1UBUjUISCKHDtOuFeTObKOnf')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Cali7 Joy Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$35.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjUISCKHDtOuFeTObKOnf', 'Calitoy Cali7 Joy Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="4000">
-        <div class="product-image">
-          <img src="/assets/calitoy-brand-model.jpg" alt="Calitoy Brand Model Tee" loading="lazy" onclick="openQuickView('Calitoy Brand Model Tee', '/assets/calitoy-brand-model.jpg', '$40.00', 'price_1UBUjXISCKHDtOuFTfbPBN1N')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Brand Model Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$40.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjXISCKHDtOuFTfbPBN1N', 'Calitoy Brand Model Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="4000">
-        <div class="product-image">
-          <img src="/assets/calitoy-collab-kills.jpg" alt="Calitoy x Kills Tee" loading="lazy" onclick="openQuickView('Calitoy x Kills Tee', '/assets/calitoy-collab-kills.jpg', '$40.00', 'price_1UBUjYISCKHDtOuFcHYQDJV7')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy x Kills Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$40.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjYISCKHDtOuFcHYQDJV7', 'Calitoy x Kills Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="4000">
-        <div class="product-image">
-          <img src="/assets/calitoy-collab-muse-kills.jpg" alt="Calitoy Muse x Kills Tee" loading="lazy" onclick="openQuickView('Calitoy Muse x Kills Tee', '/assets/calitoy-collab-muse-kills.jpg', '$40.00', 'price_1UBUjaISCKHDtOuFcJCUbpbE')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Muse x Kills Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$40.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjaISCKHDtOuFcJCUbpbE', 'Calitoy Muse x Kills Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="3800">
-        <div class="product-image">
-          <img src="/assets/calitoy-lioness-album.jpg" alt="Lioness Album Tee" loading="lazy" onclick="openQuickView('Lioness Album Tee', '/assets/calitoy-lioness-album.jpg', '$38.00', 'price_1UBUjbISCKHDtOuFOmIgjHDG')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Lioness Album Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$38.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjbISCKHDtOuFOmIgjHDG', 'Lioness Album Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="3500">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-gold-circle.jpg" alt="Calitoy Gold Circle Tee" loading="lazy" onclick="openQuickView('Calitoy Gold Circle Tee', '/assets/calitoy-logo-gold-circle.jpg', '$35.00', 'price_1UBUjcISCKHDtOuFkmnzywGd')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Gold Circle Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$35.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjcISCKHDtOuFkmnzywGd', 'Calitoy Gold Circle Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="3500">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-neon-metal.jpg" alt="Calitoy Neon Metal Tee" loading="lazy" onclick="openQuickView('Calitoy Neon Metal Tee', '/assets/calitoy-logo-neon-metal.jpg', '$35.00', 'price_1UBUjfISCKHDtOuFgKFDZe35')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Neon Metal Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$35.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjfISCKHDtOuFgKFDZe35', 'Calitoy Neon Metal Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="3800">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-gold-sun.jpg" alt="Calitoy Gold Sun Tee" loading="lazy" onclick="openQuickView('Calitoy Gold Sun Tee', '/assets/calitoy-logo-gold-sun.jpg', '$38.00', 'price_1UBUjgISCKHDtOuFcWoKoJfY')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Gold Sun Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$38.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjgISCKHDtOuFcWoKoJfY', 'Calitoy Gold Sun Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="3500">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-purple-sunflower.jpg" alt="Calitoy Purple Sunflower Tee" loading="lazy" onclick="openQuickView('Calitoy Purple Sunflower Tee', '/assets/calitoy-logo-purple-sunflower.jpg', '$35.00', 'price_1UBUjiISCKHDtOuFgdvs0xKV')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Purple Sunflower Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$35.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjiISCKHDtOuFgdvs0xKV', 'Calitoy Purple Sunflower Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="3500">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-chrome-purple.jpg" alt="Calitoy Chrome Purple Tee" loading="lazy" onclick="openQuickView('Calitoy Chrome Purple Tee', '/assets/calitoy-logo-chrome-purple.jpg', '$35.00', 'price_1UBUjjISCKHDtOuFgCCMP1Sk')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Chrome Purple Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$35.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjjISCKHDtOuFgCCMP1Sk', 'Calitoy Chrome Purple Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="3500">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-purple-lotus.jpg" alt="Calitoy Purple Lotus Tee" loading="lazy" onclick="openQuickView('Calitoy Purple Lotus Tee', '/assets/calitoy-logo-purple-lotus.jpg', '$35.00', 'price_1UBUjkISCKHDtOuFJljpiBwf')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Purple Lotus Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$35.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjkISCKHDtOuFJljpiBwf', 'Calitoy Purple Lotus Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="3500">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-neon-purple.jpg" alt="Calitoy Neon Purple Tee" loading="lazy" onclick="openQuickView('Calitoy Neon Purple Tee', '/assets/calitoy-logo-neon-purple.jpg', '$35.00', 'price_1UBUjnISCKHDtOuFpthC4kPW')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Neon Purple Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$35.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjnISCKHDtOuFpthC4kPW', 'Calitoy Neon Purple Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="3500">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-pink-3d.jpg" alt="Calitoy Pink 3D Tee" loading="lazy" onclick="openQuickView('Calitoy Pink 3D Tee', '/assets/calitoy-logo-pink-3d.jpg', '$35.00', 'price_1UBUjoISCKHDtOuFE4bOI2Dy')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Pink 3D Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$35.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjoISCKHDtOuFE4bOI2Dy', 'Calitoy Pink 3D Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="3500">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-gold-emboss.jpg" alt="Calitoy Gold Emboss Tee" loading="lazy" onclick="openQuickView('Calitoy Gold Emboss Tee', '/assets/calitoy-logo-gold-emboss.jpg', '$35.00', 'price_1UBUjqISCKHDtOuFEFElXHrQ')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Gold Emboss Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$35.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjqISCKHDtOuFEFElXHrQ', 'Calitoy Gold Emboss Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="3800">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-muse-gold-rose.jpg" alt="Calitoy Muse Gold Rose Tee" loading="lazy" onclick="openQuickView('Calitoy Muse Gold Rose Tee', '/assets/calitoy-logo-muse-gold-rose.jpg', '$38.00', 'price_1UBUjrISCKHDtOuFjTqTYLMI')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Muse Gold Rose Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$38.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjrISCKHDtOuFjTqTYLMI', 'Calitoy Muse Gold Rose Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="t-shirts" data-price="3500">
-        <div class="product-image">
-          <img src="/assets/calitoy-logo-tattoo-7.jpg" alt="Calitoy Tattoo 7 Tee" loading="lazy" onclick="openQuickView('Calitoy Tattoo 7 Tee', '/assets/calitoy-logo-tattoo-7.jpg', '$35.00', 'price_1UBUjsISCKHDtOuFSsyy6XfS')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">T-Shirts</span>
-          <h3 class="product-name">Calitoy Tattoo 7 Tee</h3>
-          <div class="product-bottom">
-            <span class="product-price">$35.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjsISCKHDtOuFSsyy6XfS', 'Calitoy Tattoo 7 Tee')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="tank-tops" data-price="2800">
-        <div class="product-image">
-          <img src="/assets/mockup-tank-black.jpg" alt="Calitoy Tank Top" loading="lazy" onclick="openQuickView('Calitoy Tank Top', '/assets/mockup-tank-black.jpg', '$28.00', 'price_1UBUjvISCKHDtOuFx7EBRYzd')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">Tank Tops</span>
-          <h3 class="product-name">Calitoy Tank Top</h3>
-          <div class="product-bottom">
-            <span class="product-price">$28.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjvISCKHDtOuFx7EBRYzd', 'Calitoy Tank Top')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="hoodies" data-price="5500">
-        <div class="product-image">
-          <img src="/assets/mockup-hoodie-gothic.jpg" alt="Calitoy Gothic Hoodie" loading="lazy" onclick="openQuickView('Calitoy Gothic Hoodie', '/assets/mockup-hoodie-gothic.jpg', '$55.00', 'price_1UBUjwISCKHDtOuFrJNqRIKO')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">Hoodies</span>
-          <h3 class="product-name">Calitoy Gothic Hoodie</h3>
-          <div class="product-bottom">
-            <span class="product-price">$55.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjwISCKHDtOuFrJNqRIKO', 'Calitoy Gothic Hoodie')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="hats" data-price="2800">
-        <div class="product-image">
-          <img src="/assets/mockup-cap-black.jpg" alt="Calitoy Cap" loading="lazy" onclick="openQuickView('Calitoy Cap', '/assets/mockup-cap-black.jpg', '$28.00', 'price_1UBUjyISCKHDtOuFU20mqGS8')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">Hats</span>
-          <h3 class="product-name">Calitoy Cap</h3>
-          <div class="product-bottom">
-            <span class="product-price">$28.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjyISCKHDtOuFU20mqGS8', 'Calitoy Cap')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="hats" data-price="3000">
-        <div class="product-image">
-          <img src="/assets/mockup-cap-snapback.jpg" alt="Calitoy Snapback" loading="lazy" onclick="openQuickView('Calitoy Snapback', '/assets/mockup-cap-snapback.jpg', '$30.00', 'price_1UBUjzISCKHDtOuF3HnzxyRu')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">Hats</span>
-          <h3 class="product-name">Calitoy Snapback</h3>
-          <div class="product-bottom">
-            <span class="product-price">$30.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUjzISCKHDtOuF3HnzxyRu', 'Calitoy Snapback')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="hats" data-price="2400">
-        <div class="product-image">
-          <img src="/assets/mockup-beanie-black.jpg" alt="Calitoy Beanie" loading="lazy" onclick="openQuickView('Calitoy Beanie', '/assets/mockup-beanie-black.jpg', '$24.00', 'price_1UBUk0ISCKHDtOuF29qMRZ8u')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">Hats</span>
-          <h3 class="product-name">Calitoy Beanie</h3>
-          <div class="product-bottom">
-            <span class="product-price">$24.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUk0ISCKHDtOuF29qMRZ8u', 'Calitoy Beanie')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="mugs" data-price="1800">
-        <div class="product-image">
-          <img src="/assets/mockup-mug-white.jpg" alt="Calitoy Mug" loading="lazy" onclick="openQuickView('Calitoy Mug', '/assets/mockup-mug-white.jpg', '$18.00', 'price_1UBUk3ISCKHDtOuFSmj4Ga9O')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">Mugs</span>
-          <h3 class="product-name">Calitoy Mug</h3>
-          <div class="product-bottom">
-            <span class="product-price">$18.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUk3ISCKHDtOuFSmj4Ga9O', 'Calitoy Mug')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="mugs" data-price="2200">
-        <div class="product-image">
-          <img src="/assets/mockup-mug-travel.jpg" alt="Calitoy Travel Mug" loading="lazy" onclick="openQuickView('Calitoy Travel Mug', '/assets/mockup-mug-travel.jpg', '$22.00', 'price_1UBUk4ISCKHDtOuFlGo6fhxX')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">Mugs</span>
-          <h3 class="product-name">Calitoy Travel Mug</h3>
-          <div class="product-bottom">
-            <span class="product-price">$22.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUk4ISCKHDtOuFlGo6fhxX', 'Calitoy Travel Mug')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="accessories" data-price="800">
-        <div class="product-image">
-          <img src="/assets/mockup-sticker.jpg" alt="Calitoy Sticker Pack" loading="lazy" onclick="openQuickView('Calitoy Sticker Pack', '/assets/mockup-sticker.jpg', '$8.00', 'price_1UBUk5ISCKHDtOuFqbAGuVij')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">Accessories</span>
-          <h3 class="product-name">Calitoy Sticker Pack</h3>
-          <div class="product-bottom">
-            <span class="product-price">$8.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUk5ISCKHDtOuFqbAGuVij', 'Calitoy Sticker Pack')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="accessories" data-price="4500">
-        <div class="product-image">
-          <img src="/assets/mockup-blanket.jpg" alt="Calitoy Blanket" loading="lazy" onclick="openQuickView('Calitoy Blanket', '/assets/mockup-blanket.jpg', '$45.00', 'price_1UBUk7ISCKHDtOuFhvKDV53M')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">Accessories</span>
-          <h3 class="product-name">Calitoy Blanket</h3>
-          <div class="product-bottom">
-            <span class="product-price">$45.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUk7ISCKHDtOuFhvKDV53M', 'Calitoy Blanket')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="accessories" data-price="2400">
-        <div class="product-image">
-          <img src="/assets/mockup-tote-natural.jpg" alt="Calitoy Tote Bag" loading="lazy" onclick="openQuickView('Calitoy Tote Bag', '/assets/mockup-tote-natural.jpg', '$24.00', 'price_1UBUk8ISCKHDtOuF7VV7Okrx')">
-        </div>
-        <div class="product-info">
-          <span class="product-category">Accessories</span>
-          <h3 class="product-name">Calitoy Tote Bag</h3>
-          <div class="product-bottom">
-            <span class="product-price">$24.00</span>
-            <button class="btn-buy" onclick="checkout('price_1UBUk8ISCKHDtOuF7VV7Okrx', 'Calitoy Tote Bag')">Buy Now</button>
-          </div>
-        </div>
-      </div>
-  </div>
-
-  <!-- Quick View Modal -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-      <button class="modal-close" onclick="closeModal()">&times;</button>
-      <img id="modalImage" src="" alt="">
-      <div class="modal-body">
-        <h3 id="modalName"></h3>
-        <div class="price" id="modalPrice"></div>
-        <button class="btn-buy" id="modalBuyBtn">Buy Now</button>
-      </div>
+      <button class="btn-checkout" id="checkoutBtn">Checkout with Stripe</button>
+      <button class="btn-clear-cart" id="clearCartBtn">Clear Cart</button>
     </div>
   </div>
 
@@ -1097,85 +1032,275 @@
   </footer>
 
   <script>
-    // Hamburger menu
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      navMenu.classList.toggle('open');
-    });
+    // ===== DATA =====
 
-    // Category filters
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const productCards = document.querySelectorAll('.product-card');
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.filter;
-        productCards.forEach(card => {
-          if (filter === 'all' || card.dataset.category === filter) {
-            card.style.display = '';
-          } else {
-            card.style.display = 'none';
-          }
-        });
+    // 21 brand designs
+    const DESIGNS = [
+      { id: 'brand-portrait', name: 'Brand Portrait', image: '/assets/calitoy-brand-portrait.jpg' },
+      { id: 'brand-model', name: 'Brand Model', image: '/assets/calitoy-brand-model.jpg' },
+      { id: 'collab-kills', name: 'Collab Kills', image: '/assets/calitoy-collab-kills.jpg' },
+      { id: 'collab-muse-kills', name: 'Muse x Kills', image: '/assets/calitoy-collab-muse-kills.jpg' },
+      { id: 'lioness-album', name: 'Lioness Album', image: '/assets/calitoy-lioness-album.jpg' },
+      { id: 'logo-gold-circle', name: 'Gold Circle', image: '/assets/calitoy-logo-gold-circle.jpg' },
+      { id: 'logo-neon-metal', name: 'Neon Metal', image: '/assets/calitoy-logo-neon-metal.jpg' },
+      { id: 'logo-gold-sun', name: 'Gold Sun', image: '/assets/calitoy-logo-gold-sun.jpg' },
+      { id: 'logo-gold-rose', name: 'Gold Rose', image: '/assets/calitoy-logo-gold-rose.jpg' },
+      { id: 'logo-purple-sunflower', name: 'Purple Sunflower', image: '/assets/calitoy-logo-purple-sunflower.jpg' },
+      { id: 'logo-chrome-purple', name: 'Chrome Purple', image: '/assets/calitoy-logo-chrome-purple.jpg' },
+      { id: 'logo-purple-brush', name: 'Purple Brush', image: '/assets/calitoy-logo-purple-brush.jpg' },
+      { id: 'logo-purple-lotus', name: 'Purple Lotus', image: '/assets/calitoy-logo-purple-lotus.jpg' },
+      { id: 'logo-neon-purple', name: 'Neon Purple', image: '/assets/calitoy-logo-neon-purple.jpg' },
+      { id: 'logo-gold-emboss', name: 'Gold Emboss', image: '/assets/calitoy-logo-gold-emboss.jpg' },
+      { id: 'logo-muse-gold-rose', name: 'Muse Gold Rose', image: '/assets/calitoy-logo-muse-gold-rose.jpg' },
+      { id: 'logo-pink-3d', name: 'Pink 3D', image: '/assets/calitoy-logo-pink-3d.jpg' },
+      { id: 'logo-gothic-7', name: 'Gothic 7', image: '/assets/calitoy-logo-gothic-7.jpg' },
+      { id: 'logo-retro-7', name: 'Retro 7', image: '/assets/calitoy-logo-retro-7.jpg' },
+      { id: 'logo-tattoo-7', name: 'Tattoo 7', image: '/assets/calitoy-logo-tattoo-7.jpg' },
+      { id: 'logo-cali7-joy', name: 'Cali7 Joy', image: '/assets/calitoy-logo-cali7-joy.jpg' },
+    ];
+
+    // 20 product types with Stripe price IDs and mockup images
+    const PRODUCT_TYPES = [
+      { id: 'tee-staple', name: 'Unisex Staple Tee', price: 32, priceId: 'price_1UBUjPISCKHDtOuFaEjpVyH2', mockup: '/assets/mockup-tee-black.jpg' },
+      { id: 'hoodie-pullover', name: 'Unisex Pullover Hoodie', price: 52, priceId: 'price_1UBUjwISCKHDtOuFrJNqRIKO', mockup: '/assets/mockup-hoodie-gothic.jpg' },
+      { id: 'hoodie-heavy-blend', name: 'Unisex Heavy Blend Hoodie', price: 48, priceId: null, mockup: '/assets/mockup-hoodie-gothic.jpg' },
+      { id: 'crew-sweatshirt', name: 'Unisex Crew Sweatshirt', price: 42, priceId: null, mockup: '/assets/mockup-hoodie-gothic.jpg' },
+      { id: 'tank-top', name: 'Unisex Tank Top', price: 28, priceId: 'price_1UBUjvISCKHDtOuFx7EBRYzd', mockup: '/assets/mockup-tank-black.jpg' },
+      { id: 'long-sleeve-tee', name: 'Unisex Long Sleeve Tee', price: 36, priceId: null, mockup: '/assets/mockup-tee-black.jpg' },
+      { id: 'tri-blend-tee', name: 'Unisex Tri-Blend Tee', price: 38, priceId: null, mockup: '/assets/mockup-tee-rose-heart.jpg' },
+      { id: 'cuffed-beanie', name: 'Cuffed Beanie', price: 24, priceId: 'price_1UBUk0ISCKHDtOuF29qMRZ8u', mockup: '/assets/mockup-beanie-black.jpg' },
+      { id: 'knit-beanie', name: 'Knit Beanie', price: 22, priceId: null, mockup: '/assets/mockup-beanie-black.jpg' },
+      { id: 'snapback-cap', name: 'Snapback Cap', price: 28, priceId: 'price_1UBUjyISCKHDtOuFU20mqGS8', mockup: '/assets/mockup-cap-snapback.jpg' },
+      { id: 'classic-snapback', name: 'Classic Snapback', price: 30, priceId: 'price_1UBUjzISCKHDtOuF3HnzxyRu', mockup: '/assets/mockup-cap-snapback.jpg' },
+      { id: 'dad-hat', name: 'Classic Dad Hat', price: 28, priceId: null, mockup: '/assets/mockup-cap-black.jpg' },
+      { id: 'white-mug', name: 'White Mug', price: 18, priceId: 'price_1UBUk3ISCKHDtOuFSmj4Ga9O', mockup: '/assets/mockup-mug-white.jpg' },
+      { id: 'black-mug', name: 'Black Mug', price: 18, priceId: null, mockup: '/assets/mockup-mug-travel.jpg' },
+      { id: 'eco-tote', name: 'Eco Tote Bag', price: 24, priceId: 'price_1UBUk8ISCKHDtOuF7VV7Okrx', mockup: '/assets/mockup-tote-natural.jpg' },
+      { id: 'stickers', name: 'Kiss-Cut Stickers', price: 8, priceId: 'price_1UBUk5ISCKHDtOuFqbAGuVij', mockup: '/assets/mockup-sticker.jpg' },
+      { id: 'beach-towel', name: 'Beach Towel', price: 35, priceId: null, mockup: '/assets/mockup-blanket.jpg' },
+      { id: 'softstyle-tee', name: 'Basic Softstyle Tee', price: 28, priceId: null, mockup: '/assets/mockup-tee-black.jpg' },
+      { id: 'joggers', name: 'Unisex Joggers', price: 38, priceId: null, mockup: '/assets/mockup-tee-black.jpg' },
+      { id: 'long-sleeve-shirt', name: 'Unisex Long Sleeve Shirt', price: 34, priceId: null, mockup: '/assets/mockup-tee-rose-heart.jpg' },
+    ];
+
+    // ===== STATE =====
+    let selectedDesign = null;
+    let cart = [];
+
+    // ===== CART PERSISTENCE =====
+    function saveCart() {
+      try { localStorage.setItem('calitoy_cart', JSON.stringify(cart)); } catch(e) {}
+    }
+
+    function loadCart() {
+      try {
+        const saved = localStorage.getItem('calitoy_cart');
+        if (saved) cart = JSON.parse(saved);
+      } catch(e) { cart = []; }
+    }
+
+    // ===== RENDER DESIGN GRID =====
+    function renderDesigns() {
+      const grid = document.getElementById('designGrid');
+      grid.innerHTML = '';
+      DESIGNS.forEach(d => {
+        const card = document.createElement('div');
+        card.className = 'design-card' + (selectedDesign && selectedDesign.id === d.id ? ' selected' : '');
+        card.onclick = () => selectDesign(d);
+        card.innerHTML = '<img src="' + d.image + '" alt="' + d.name + '" loading="lazy"><div class="design-name">' + d.name + '</div>';
+        grid.appendChild(card);
       });
-    });
-
-    // Quick view modal
-    const modalOverlay = document.getElementById('modalOverlay');
-    let currentPriceId = '';
-
-    function openQuickView(name, image, price, priceId) {
-      document.getElementById('modalImage').src = image;
-      document.getElementById('modalName').textContent = name;
-      document.getElementById('modalPrice').textContent = price;
-      currentPriceId = priceId;
-      document.getElementById('modalBuyBtn').onclick = () => checkout(priceId, name);
-      modalOverlay.classList.add('active');
     }
 
-    function closeModal() {
-      modalOverlay.classList.remove('active');
+    // ===== SELECT DESIGN =====
+    function selectDesign(design) {
+      selectedDesign = design;
+      renderDesigns();
+      renderProductTypes();
+      document.getElementById('productTypesWrapper').classList.add('visible');
+      document.getElementById('step1').classList.remove('active');
+      document.getElementById('step1').classList.add('completed');
+      document.getElementById('step2').classList.add('active');
+      // Scroll to product types
+      setTimeout(() => {
+        document.getElementById('productTypesWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
     }
 
-    modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) closeModal();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    // Toast
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 3500);
+    // ===== RENDER PRODUCT TYPES =====
+    function renderProductTypes() {
+      const grid = document.getElementById('productTypesGrid');
+      grid.innerHTML = '';
+      if (!selectedDesign) {
+        document.getElementById('noDesignWarning').style.display = 'block';
+        return;
+      }
+      document.getElementById('noDesignWarning').style.display = 'none';
+      PRODUCT_TYPES.forEach(pt => {
+        const card = document.createElement('div');
+        card.className = 'product-type-card';
+        const disabled = pt.priceId ? '' : ' disabled';
+        card.innerHTML =
+          '<img class="mockup-image" src="' + pt.mockup + '" alt="' + pt.name + '" loading="lazy">' +
+          '<div class="product-type-info">' +
+            '<div class="product-type-name">' + pt.name + '</div>' +
+            '<div class="product-type-price">$' + pt.price.toFixed(2) + '</div>' +
+            '<button class="product-type-add"' + (pt.priceId ? '' : ' disabled title="No Stripe price set yet"') + '>Add to Cart</button>' +
+          '</div>';
+        if (pt.priceId) {
+          card.querySelector('.product-type-add').onclick = (e) => {
+            e.stopPropagation();
+            addToCart(selectedDesign, pt);
+          };
+        }
+        grid.appendChild(card);
+      });
     }
 
-    // Stripe checkout
-    async function checkout(priceId, productName) {
-      const btn = event.target || event.currentTarget;
-      const originalText = btn.innerHTML;
+    // ===== CART OPERATIONS =====
+    function addToCart(design, productType) {
+      const existing = cart.find(item => item.designId === design.id && item.productTypeId === productType.id);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({
+          designId: design.id,
+          designName: design.name,
+          designImage: design.image,
+          productTypeId: productType.id,
+          productTypeName: productType.name,
+          price: productType.price,
+          priceId: productType.priceId,
+          mockup: productType.mockup,
+          quantity: 1,
+        });
+      }
+      saveCart();
+      updateCartUI();
+      showToast(design.name + ' on ' + productType.name + ' added to cart');
+      openCart();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      saveCart();
+      updateCartUI();
+    }
+
+    function changeQty(index, delta) {
+      if (cart[index]) {
+        cart[index].quantity += delta;
+        if (cart[index].quantity <= 0) {
+          removeFromCart(index);
+        } else {
+          saveCart();
+          updateCartUI();
+        }
+      }
+    }
+
+    function clearCart() {
+      cart = [];
+      saveCart();
+      updateCartUI();
+    }
+
+    function getCartTotal() {
+      return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    }
+
+    function getCartCount() {
+      return cart.reduce((sum, item) => sum + item.quantity, 0);
+    }
+
+    // ===== CART UI =====
+    function updateCartUI() {
+      const badge = document.getElementById('cartBadge');
+      const count = getCartCount();
+      badge.textContent = count;
+      if (count > 0) {
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+
+      const itemsContainer = document.getElementById('cartItems');
+      const footer = document.getElementById('cartFooter');
+
+      if (cart.length === 0) {
+        itemsContainer.innerHTML = '<div class="cart-empty">Your cart is empty. Pick a design and product to get started.</div>';
+        footer.style.display = 'none';
+      } else {
+        itemsContainer.innerHTML = '';
+        cart.forEach((item, i) => {
+          const el = document.createElement('div');
+          el.className = 'cart-item';
+          el.innerHTML =
+            '<img class="cart-item-img" src="' + item.designImage + '" alt="' + item.designName + '">' +
+            '<div class="cart-item-info">' +
+              '<div class="cart-item-design">' + item.designName + '</div>' +
+              '<div class="cart-item-type">' + item.productTypeName + '</div>' +
+              '<div class="cart-item-price">$' + (item.price * item.quantity).toFixed(2) + '</div>' +
+              '<div class="cart-item-bottom">' +
+                '<div class="qty-controls">' +
+                  '<button class="qty-btn" onclick="changeQty(' + i + ', -1)">&minus;</button>' +
+                  '<span class="qty-value">' + item.quantity + '</span>' +
+                  '<button class="qty-btn" onclick="changeQty(' + i + ', 1)">+</button>' +
+                '</div>' +
+                '<button class="cart-item-remove" onclick="removeFromCart(' + i + ')">&#10005;</button>' +
+              '</div>' +
+            '</div>';
+          itemsContainer.appendChild(el);
+        });
+        footer.style.display = 'block';
+        document.getElementById('cartTotal').textContent = '$' + getCartTotal().toFixed(2);
+      }
+    }
+
+    function openCart() {
+      document.getElementById('cartOverlay').classList.add('active');
+      document.getElementById('cartDrawer').classList.add('open');
+    }
+
+    function closeCart() {
+      document.getElementById('cartOverlay').classList.remove('active');
+      document.getElementById('cartDrawer').classList.remove('open');
+    }
+
+    // ===== CHECKOUT =====
+    async function checkout() {
+      if (cart.length === 0) return;
+
+      // Filter to items with priceIds only
+      const checkoutItems = cart.filter(item => item.priceId);
+      if (checkoutItems.length === 0) {
+        showToast('No items with valid checkout. Please select products with prices.');
+        return;
+      }
+
+      const btn = document.getElementById('checkoutBtn');
       btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span>';
+      btn.innerHTML = '<span class="spinner"></span> Processing...';
 
       try {
+        // Build line items array for multi-checkout
+        const lineItems = checkoutItems.map(item => ({
+          priceId: item.priceId,
+          quantity: item.quantity,
+          productName: item.designName + ' / ' + item.productTypeName,
+        }));
+
         const resp = await fetch('https://email-capture.calitoy.workers.dev', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            type: 'checkout',
-            priceId: priceId,
-            productName: productName,
+            type: 'multi-checkout',
+            items: lineItems,
             metadata: {
               brand: 'calitoy',
-              fulfiller: 'printful'
-            }
-          })
+              fulfiller: 'printful',
+            },
+          }),
         });
 
         if (!resp.ok) {
@@ -1191,11 +1316,45 @@
         }
       } catch (err) {
         console.error('Checkout error:', err);
-        showToast('Something went wrong. Please try again.');
+        showToast('Checkout failed. Please try again.');
         btn.disabled = false;
-        btn.innerHTML = originalText;
+        btn.innerHTML = 'Checkout with Stripe';
       }
     }
+
+    // ===== TOAST =====
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    // ===== EVENT LISTENERS =====
+    document.getElementById('cartBtn').addEventListener('click', openCart);
+    document.getElementById('cartClose').addEventListener('click', closeCart);
+    document.getElementById('cartOverlay').addEventListener('click', closeCart);
+    document.getElementById('checkoutBtn').addEventListener('click', checkout);
+    document.getElementById('clearCartBtn').addEventListener('click', () => {
+      if (confirm('Clear all items from cart?')) clearCart();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeCart();
+    });
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navMenu.classList.toggle('open');
+    });
+
+    // ===== INIT =====
+    loadCart();
+    renderDesigns();
+    updateCartUI();
   </script>
 </body>
 </html>
