@@ -736,7 +736,7 @@ async function doCheckout() {
   btn.classList.add('loading');
   btn.textContent = 'Processing...';
 
-  const designUrl = window.location.origin + '/' + selectedDesign.img;
+  const designUrl = new URL(selectedDesign.img, window.location.href).href;
   const payload = {
     type: 'checkout',
     priceId: selectedProduct.priceId,
